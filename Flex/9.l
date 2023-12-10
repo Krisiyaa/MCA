@@ -10,7 +10,7 @@
     printf("%s is a valid email address\n", yytext);
 }
 
-.  {
+.*  {
     printf("Invalid input: %s\n", yytext);
 }
 %%
