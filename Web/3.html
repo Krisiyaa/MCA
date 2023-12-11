@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+    <style></style>
+  </head>
+  <body style="background-color: {{colchange}};">
+    <div>
+      <label> Font Size: </label>
+      <input type="number" ng-model="font" /><br />
+      <label> Enter font color: </label>
+      <input type="text" ng-model="fontCol" /><br />
+      <label> Enter background color: </label>
+      <input type="text" ng-model="colchange" /><br />
+    </div>
+    <h1 style="font-size: {{font}}px; color: {{fontCol}};">Angular JS</h1>
+  </body>
+</html>

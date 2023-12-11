@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+  </head>
+  <body ng-app="module1" ng-controller="contr">
+    <ol>
+      <li ng-repeat="info in employee">{{info}}</li>
+    </ol>
+  </body>
+  <script>
+    const app = angular.module("module1", []);
+    app.controller("contr", function ($scope) {
+      $scope.employee = [
+        { name: "Mogambo" },
+        { empid: 1205 },
+        { department: "SOC" },
+      ];
+    });
+  </script>
+</html>

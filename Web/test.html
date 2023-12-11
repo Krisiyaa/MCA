@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+  </head>
+  <body ng-app="mod" ng-controller="ct">
+    <ol ng-repeat="info in emp">
+      {{info}}
+    </ol>
+  </body>
+  <script>
+    const app = angular.module("mod", []);
+    app.controller("ct", function ($scope) {
+      $scope.emp = [
+        { name: "Krishant" },
+        { name1: "Krisiya" },
+      ];
+    });
+  </script>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en" ng-app="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+    <style></style>
+  </head>
+  <body style="background-color: {{bgCol}}">
+    <div>
+      <h5>size</h5>
+      <input type="number" ng-model="font" /><br />
+      <h5>Color</h5>
+      <input type="text" ng-model="col" /><br />
+      <h5>size</h5>
+      <input type="text" ng-model="bgCol" /><br />
+    </div>
+    <h1 style="font-size: {{font}}; color:{{col}};">Krishant Chauhan</h1>
+  </body>
+</html>
