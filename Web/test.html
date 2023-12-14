@@ -1,41 +1,37 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Document</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
-  </head>
-  <body ng-app="mod" ng-controller="ct">
-    <ol ng-repeat="info in emp">
-      {{info}}
-    </ol>
-  </body>
-  <script>
-    const app = angular.module("mod", []);
-    app.controller("ct", function ($scope) {
-      $scope.emp = [{ name: "Kris" }, { name2: "Siya" }];
-    });
-  </script>
-</html> -->
-
-
 <!DOCTYPE html>
 <html lang="en" ng-app="">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
-    <style></style>
   </head>
-  <body style="background-color: {{bgCol}}">
-    <div>
-      <h5>size</h5>
-      <input type="number" ng-model="font" /><br />
-      <h5>Color</h5>
-      <input type="text" ng-model="col" /><br />
-      <h5>size</h5>
-      <input type="text" ng-model="bgCol" /><br />
-    </div>
-    <h1 style="font-size: {{font}}; color:{{col}};">Krishant Chauhan</h1>
+  <style>
+    input.ng-invalid {
+      background-color: pink;
+    }
+  </style>
+  <body>
+    <form name="reg">
+      <label for="name">Name</label>
+      <input type="text" name="name" ng-model="name" required />
+      <span ng-show="reg.name.$touched && reg.name.$invalid">Invalid</span>
+      <br />
+
+      <label for="email">Email</label>
+      <input type="email" name="email" ng-model="email" required />
+      <span ng-show="reg.email.$touched && reg.email.$invalid">Invalid</span>
+      <br />
+
+      <label for="password">Password</label>
+      <input type="password" name="password" ng-model="password" required />
+      <span ng-show="reg.password.$touched && reg.password.$invalid"
+        >Invalid</span
+      >
+      <br />
+
+      <button ng-disabled="reg.$invalid">Submit</button>
+    </form>
+
+    <!-- <script>
+      angular.module("myApp", []);
+    </script> -->
   </body>
 </html>
