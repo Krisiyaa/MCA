@@ -3,57 +3,52 @@
 
 using namespace std;
 
-void DFS(vector<vector<int>> &adjMat, int src, int v, bool visited[])
+void DFS(vector<vector<int>> &adjMat, int src, int n, vector<bool> &vis)
 {
-    visited[src] = true;
+    vis[src] = true;
+    cout << src << " ";
 
-    for (int i = 0; i < v; i++)
+    for (int i = 0; i < n; i++)
     {
-        if (adjMat[src][i] == 1 && !visited[i])
-            DFS(adjMat, i, v, visited);
+        if (adjMat[src][i] == 1 && !vis[i])
+            DFS(adjMat, i, n, vis);
     }
 }
 
-bool ispath(vector<vector<int>> &adjMat, int src, int des, int v)
+bool ischeck(vector<vector<int>> &adjMat, int n, int src, int des)
 {
-    bool visited[v];
-    for (int i = 0; i < v; i++)
-    {
-        visited[i] = false;
-    }
-    DFS(adjMat, src, v, visited);
+    vector<bool> vis(n, false);
 
-    return visited[des];
+    DFS(adjMat, src, n, vis);
+
+    return vis[des];
 }
 
 int main()
 {
-    int v;
-    cout << "size: ";
-    cin >> v;
+    int n;
+    cout << "Size";
+    cin >> n;
+    vector<vector<int>> adjMat(n, vector<int>(n, 0));
 
-    vector<vector<int>> adjMat(v, vector<int>(v, 0));
-
-    cout << "adj mat\n";
-
-    for (int i = 0; i < v; i++)
+    for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < v; j++)
+        for (int j = 0; j < n; j++)
+        {
             cin >> adjMat[i][j];
+        }
     }
     int src, des;
+    cout << "Enter src and des";
     cin >> src >> des;
 
-    if (ispath(adjMat, src, des, v))
-    {
-        cout << "Yes, Path Exists";
-    }
+    if (ischeck(adjMat, n, src, des))
+        cout << "YES";
     else
-        cout << "No Such Path Exists";
+        cout << "No";
 
     return 0;
 }
-
 
 // 0 1 1 0 0
 // 1 0 1 1 1
