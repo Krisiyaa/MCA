@@ -2,79 +2,84 @@
 #include <vector>
 #include <algorithm>
 
+#define loop(n) for (int i = 0; i < n; i++)
+#define loop2(K) for (int j = 0; j <= K; j++)
 using namespace std;
 
-int knapSack(int K, const vector<int>& wt, const vector<int>& P, int n, vector<int>& selectedItems)
+int calc(vector<int> &wt, vector<int> &val, int n, int K, vector<int> &ans)
 {
-    vector<vector<int>> DP(n + 1, vector<int>(K + 1, 0));
+    vector<vector<int>> dp(n + 1, vector<int>(K + 1, 0));
 
     for (int i = 1; i <= n; i++)
     {
         for (int j = 1; j <= K; j++)
         {
             if (wt[i - 1] > j)
-                DP[i][j] = DP[i - 1][j];
+                dp[i][j] = dp[i - 1][j];
             else
-                DP[i][j] = max(P[i - 1] + DP[i - 1][j - wt[i - 1]], DP[i - 1][j]);
+                dp[i][j] = max(val[i - 1] + dp[i - 1][j - wt[i - 1]], dp[i - 1][j]);
         }
     }
 
-    // Backtrack to find the selected items
-    int i = n;
-    int w = K;
-    while (i > 0 && w > 0)
+    int i = n, j = K;
+    while (i > 0 && j > 0)
     {
-        if (DP[i][w] != DP[i - 1][w])
+        if (dp[i][j] != dp[i - 1][j])
         {
-            selectedItems.push_back(i - 1);
-            w -= wt[i - 1];
+            ans.push_back(i - 1);
+            j -= wt[i - 1];
         }
         i--;
     }
 
-    return DP[n][K];
+    return dp[n][K];
 }
 
 int main()
 {
+
     int n;
-    cout << "Enter the number of items: ";
     cin >> n;
 
-    vector<int> wt(n), val(n);
+    vector<int> wt(n);
+    vector<int> val(n);
 
-    cout << "Enter weights of items: ";
-    for (int i = 0; i < n; i++)
-        cin >> wt[i];
+    loop(n)
+    {
+        cin >>
+            wt[i];
+    }
 
-    cout << "Enter values of items: ";
-    for (int i = 0; i < n; i++)
-        cin >> val[i];
+    loop(n)
+    {
+        cin >>
+            val[i];
+    }
 
     int K;
-    cout << "Enter the knapsack capacity: ";
     cin >> K;
 
-    vector<int> selectedItems;
-    int maxValue = knapSack(K, wt, val, n, selectedItems);
+    vector<int> ans;
 
-    cout << "Maximum Value: " << maxValue << endl;
-    cout << "Weights selected: ";
+    cout << "max " << calc(wt, val, n, K, ans);
 
-    for (int i = selectedItems.size() - 1; i >= 0; i--)
-        cout << wt[selectedItems[i]] << " ";
-    cout << endl;
+    cout << "\nWT :-";
 
-    cout << "Values of selected weights: ";
+    for (int i = ans.size() - 1; i >= 0; i--)
+        cout << wt[ans[i]] << " ";
+    ;
 
-    for (int i = selectedItems.size() - 1; i >= 0; i--)
-        cout << val[selectedItems[i]] << " ";
-    cout << endl;
+    cout << "\nval :-";
+    for (int i = ans.size() - 1; i >= 0; i--)
+        cout << val[ans[i]] << " ";
 
     return 0;
 }
 
-
-
 // 2 3 3 4 6
 // 1 2 5 9 4
+
+// 5
+// 2 3 3 4 6
+// 1 2 5 9 4
+// 10
