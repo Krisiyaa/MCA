@@ -1,47 +1,53 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
+#include <climits>
+#include <iomanip>
+
+#define n 5
+#define INF INT_MAX
 
 using namespace std;
-void DFS(vector<vector<int>> &adjMat, int n, int src, vector<bool> &vis)
-{
-    vis[src] = true;
-    cout<<src<<" ";
-    for (int i = 0; i < n; i++)
-    {
-        if (adjMat[src][i] == 1 && !vis[i])
-        {
-            DFS(adjMat, n, i, vis);
-        }
-    }
-}   
 
-bool ischeck(vector<vector<int>> &adjMat, int n, int src, int des)
+void FloydWarshall(vector<vector<int>> &graph)
 {
-    vector<bool> vis(n, false);
-    DFS(adjMat, n, src, vis);
-    return vis[des];
-}
-
-int main()
-{
-    int n;
-    cin >> n;
-
-    vector<vector<int>> adjMat(n, vector<int>(n, 0));
+    vector<vector<int>> mat = graph;
 
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < n; j++)
-            cin >> adjMat[i][j];
+        {
+            for (int k = 0; k < n; k++)
+            {
+                if (mat[j][i] != INF && mat[i][k] != INF && mat[j][i] + mat[i][k] < mat[j][k])
+                    mat[j][k] = mat[j][i] + mat[i][k];
+            }
+        }
     }
-    int src, des;
-    cin >> src >> des;
 
-    if (ischeck(adjMat, n, src, des))
-        cout << "Yes";
-    else
-        cout << "No";
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if (mat[i][j] == INF)
+                cout << setw(10) << "INF";
+            else
+                cout << setw(10) << mat[i][j];
+        }
+        cout << "\n";
+    }
+}
 
+int main()
+{
+    vector<vector<int>> graph = {{0, 10, 5, 5, INF},
+                                 {INF, 0, 5, 5, 5},
+                                 {INF, INF, 0, INF, 10},
+                                 {INF, INF, INF, 0, 20},
+                                 {INF, INF, INF, 5, 0}};
+
+    FloydWarshall(graph);
     return 0;
 }
+

@@ -8,39 +8,38 @@
 
 using namespace std;
 
-void output(const vector<vector<int>> &length)
+void output(vector<vector<int>> &mat)
 {
-    for (int x = 0; x < A; x++)
+    for (int i = 0; i < A; i++)
     {
-        for (int y = 0; y < A; y++)
+        for (int j = 0; j < A; j++)
         {
-            if (length[x][y] == INF)
+            if (mat[i][j] == INF)
                 cout << setw(12) << "INF";
             else
-                cout << setw(12) << length[x][y];
+                cout << setw(12) << mat[i][j];
         }
         cout << endl;
     }
 }
 
-void FloydWarshall(const vector<vector<int>> &graph)
+void FloydWarshall(vector<vector<int>> &graph)
 {
-    vector<vector<int>> length = graph;
+    vector<vector<int>> mat = graph;
 
-    for (int z = 0; z < A; z++)
+    for (int i = 0; i < A; i++)
     {
-        for (int x = 0; x < A; x++)
+        for (int j = 0; j < A; j++)
         {
-            for (int y = 0; y < A; y++)
+            for (int k = 0; k < A; k++)
             {
-                if (length[x][z] != INF &&
-                    length[z][y] != INF &&
-                    length[x][z] + length[z][y] < length[x][y])
-                    length[x][y] = length[x][z] + length[z][y];
+                if (mat[j][i] != INF && mat[i][k] != INF && mat[j][i] + mat[i][k] < mat[j][k])
+
+                    mat[j][k] = mat[j][i] + mat[i][k];
             }
         }
     }
-    output(length);
+    output(mat);
 }
 
 int main()

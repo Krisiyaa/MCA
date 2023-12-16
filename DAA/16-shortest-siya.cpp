@@ -36,6 +36,7 @@ void FloydWarshall(const vector<vector<int>> &graph)
                 if (length[x][z] != INF &&
                     length[z][y] != INF &&
                     length[x][z] + length[z][y] < length[x][y])
+
                     length[x][y] = length[x][z] + length[z][y];
             }
         }
