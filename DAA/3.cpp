@@ -21,7 +21,6 @@ bool DFS(vector<vector<int>> &adjMat, int src, int n, vector<bool> &vis, vector<
 
     st[src] = false;
     return false;
-    
 }
 
 bool ischeck(vector<vector<int>> &adjMat, int n)
