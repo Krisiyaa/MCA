@@ -65,7 +65,7 @@ int main()
 // Output:
 // Shortest Distance Matrix:
 // 0 10 15 5 15
-// INF0555
+// INF 0 5 5 5
 // INF INF 0 15 10
 // INF INF INF 0 20
 // INF INF INF 5 0
