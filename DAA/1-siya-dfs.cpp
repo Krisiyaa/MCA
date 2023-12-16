@@ -23,17 +23,6 @@ void DFS(vector<int> adj[],int v,int s){
     DFSRec(adj,s,visited);
 }
 
-
-// bool isPathExists(vector<int> adj[], int v, int source, int destination) {
-//     bool visited[v];
-//     for (int i = 0; i < v; i++)
-//         visited[i] = false;
-
-//     DFSRec(adj, source, visited);
-
-//     return visited[destination];
-// }
-
 int main() {
     int v; // Number of vertices
     cout << "Enter the number of vertices: ";
