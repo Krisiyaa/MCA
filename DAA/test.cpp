@@ -1,43 +1,70 @@
-#include <iostream>
-#include <vector>
-#include <climits>
-#include <iomanip>
-#include <algorithm>
+#include <bits/stdc++.h>
 
 #define INF INT_MAX
 
 using namespace std;
 
-int solve(vector<int> &wt,int i,int j){
-    
-    if(i+1 == j)
-        return 0;
-    
-    int mn=INT_MAX;
-    for(int k=i+1;k<j;k++){
-        int sum=solve(wt,i,k)+solve(wt,k,j)+wt[i]*wt[j]*wt[k];
-        mn=min(mn,sum);
-    }
+bool DFS(vector<vector<int>>& adj,int n,int src,vector<bool>&vis,vector<bool>&st)
+{
+    vis[src]=true;
+    st[src]=true;
 
-    return mn;
+    for(int i=0;i<n;i++){
+        if(adj[src][i]){
+            if(!vis[i] && DFS(adj,n,i,vis,st))
+                return true;
+            else if(st[i])
+                return true;
+        }
+    }
+    st[src]=false;
+    return false;
+}
+
+bool check(vector<vector<int>>& adj,int n)
+{
+    vector<bool>vis(n,false);
+    vector<bool>st(n,false);
+
+    for(int i=0;i<n;i++){
+        if(!vis[i] && DFS(adj,n,i,vis,st))
+            return true;
+    }
+    return false;
 }
 
 int main()
 {
-    vector<int> wt = {10, 30, 5, 60};
-    int n = wt.size();
-    // cout << n;
 
-    cout<<"\n"<<solve(wt,0,n-1);
+    int n;
+    cin >> n;
 
+    vector<vector<int>> adj(n, vector<int>(n, 0));
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+            cin >> adj[i][j];
+    }
+
+    if (check(adj, n))
+        cout << "YES";
+    else
+        cout << "NO";
     return 0;
 }
 
 // 0 1 1 0 0
-// 1 0 0 1 1
-// 1 0 0 0 0
-// 0 1 0 0 1
+// 1 0 1 1 1
+// 1 1 0 1 0
+// 0 1 1 0 1
 // 0 1 0 1 0
+
+// 0 1 1 0 0
+// 0 0 0 1 1
+// 0 1 0 1 0
+// 0 0 0 0 1
+// 0 0 0 0 0
 
 // 2 3 3 4 6
 // 1 2 5 9 4

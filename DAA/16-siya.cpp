@@ -39,6 +39,8 @@ void FloydWarshall(vector<vector<int>> &graph)
             }
         }
     }
+    output(graph);
+    cout<<"\n";
     output(mat);
 }
 

@@ -11,7 +11,6 @@ double fractionalKnapsackProblem(vector<pair<double, pair<double, double>>>& arr
 
     // Items with greater value-to-weight ratio are selected first
     for (int i = (nItems - 1); i >= 0; i--) {
-        // If adding the weight of the current item doesn't exceed the knapsack capacity, select it
         if ((totalWeight + arr[i].second.second) <= capacity) {
             totalWeight += arr[i].second.second;
             totalValue += arr[i].second.first;

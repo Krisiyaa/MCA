@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int P[] = {10, 30, 5, 60};
+int arr[] = {10, 30, 5, 60};
 
 int MCM(int i, int j)
 {
@@ -17,7 +17,7 @@ int MCM(int i, int j)
 
     for (int k = i + 1; k < j; k++)
     {
-        int sum = MCM(i, k) + MCM(k, j) + P[i] * P[k] * P[j];
+        int sum = MCM(i, k) + MCM(k, j) + arr[i] * arr[k] * arr[j];
         mn = min(mn, sum);
     }
 
@@ -26,16 +26,16 @@ int MCM(int i, int j)
 
 int main()
 {
-    int size = sizeof(P) / sizeof(P[0]);
-
-    cout << "Minimum number of mutiplications is " << MCM(0, size - 1);
+    int size = sizeof(arr) / sizeof(arr[0]);
+    cout<<" 3 \n 10  30\n 30 5 \n 5 60 \n";
+    cout << "Minimum number of mutiplications is " << MCM(0, size - 1)<<"\n";
 
     return 0;
 }
 
-/*OUTPUT DESCRIPTION*/
+/*OUTarrUT DESCRIarrTION*/
 /*
-              P = {10, 20, 30, 40, 30},
+              arr = {10, 20, 30, 40, 30},
               dimensions of matrix [1] = 10X20,
               dimensions of matrix [2] = 20X30,
               dimensions of matrix [3] = 30X40,

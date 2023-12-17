@@ -1,83 +1,71 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-struct Item {
-    int weight;
-    int value;
-    int index;
-    double ratio; // value-to-weight ratio
-};
+// Function to compute maximum profit obtainable
+double fractionalKnapsackProblem(vector<pair<double, pair<double, double>>>& arr, int nItems, int capacity) {
+    
+    sort(arr.begin(), arr.end());
 
-bool compare(Item a, Item b) {
-    return a.ratio > b.ratio;
-}
+    double totalWeight = 0.0;  
+    double totalValue = 0.0;   
 
-void fractionalKnapsack(int n, vector<int>& weights, vector<int>& values, int capacity) {
-    vector<Item> items(n);
-
-    // Calculate value-to-weight ratio for each item
-    for (int i = 0; i < n; ++i) {
-        items[i].weight = weights[i];
-        items[i].value = values[i];
-        items[i].index = i + 1; // 1-based indexing
-        items[i].ratio = static_cast<double>(values[i]) / weights[i];
-    }
-
-    // Sort items based on value-to-weight ratio in descending order
-    sort(items.begin(), items.end(), compare);
-
-    double maxValue = 0.0;
-    vector<double> fractions(n, 0.0);
-
-    for (int i = 0; i < n; ++i) {
-        if (capacity <= 0)
-            break;
-
-        int currentWeight = items[i].weight;
-        int currentValue = items[i].value;
-
-        if (capacity >= currentWeight) {
-            fractions[items[i].index - 1] = 1.0;
-            capacity -= currentWeight;
-            maxValue += currentValue;
+    for (int i = (nItems - 1); i >= 0; i--) {
+        
+        if ((totalWeight + arr[i].second.second) <= capacity) {
+            totalWeight += arr[i].second.second;
+            totalValue += arr[i].second.first;
         } else {
-            fractions[items[i].index - 1] = static_cast<double>(capacity) / currentWeight;
-            maxValue += fractions[items[i].index - 1] * currentValue;
-            capacity = 0;
+            double remainingFraction = (capacity - totalWeight) / arr[i].second.second;
+            totalValue += arr[i].second.first * remainingFraction;
+            break;
         }
     }
 
-    // Output the result
-    cout << "Maximum value: " << maxValue << endl;
-    cout << "item-weight" << endl;
-
-    for (int i = 0; i < n; ++i) {
-        cout << items[i].index << "-" << fractions[i] << endl;
-    }
+    return totalValue;
 }
 
 int main() {
-    int n;
-    cin >> n;
+    int nItems;
+    cout << "Enter the number of items: ";
+    cin >> nItems;
 
-    vector<int> weights(n);
-    vector<int> values(n);
+    vector<double> weights(nItems);
+    vector<double> values(nItems);
 
-    for (int i = 0; i < n; ++i) {
+    cout << "Enter the weights of the items: ";
+    for (int i = 0; i < nItems; ++i) {
         cin >> weights[i];
     }
 
-    for (int i = 0; i < n; ++i) {
+    cout << "Enter the values of the items: ";
+    for (int i = 0; i < nItems; ++i) {
         cin >> values[i];
     }
 
     int capacity;
+    cout << "Enter the maximum capacity of the knapsack: ";
     cin >> capacity;
 
-    fractionalKnapsack(n, weights, values, capacity);
+    vector<pair<double, pair<double, double>>> items;
+    for (int i = 0; i < nItems; ++i) {
+        items.push_back(make_pair(values[i] / weights[i], make_pair(values[i], weights[i])));
+    }
+
+    double maxValue = fractionalKnapsackProblem(items, nItems, capacity);
+
+    cout << fixed << setprecision(2); // Set precision for decimal places
+    cout << "Maximum value: " << maxValue << endl;
+    cout << "item-weight" << endl;
+
+    // Output the selected items and their fractions
+    for (int i = nItems - 1; i >= 0; --i) {
+        double fraction = max(1.0, weights[i] / items[i].second.second);
+        cout << i + 1 << "-" << fraction << endl;
+    }
 
     return 0;
 }
+
+
+// 6 10 3 5 1 3
+// 6 2 1 8 3 5
