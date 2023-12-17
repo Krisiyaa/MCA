@@ -14,12 +14,12 @@ bool hasMajorityElement(const vector<int> &arr, int &mx)
         mp[arr[i]]++;
 
     int ct = 0;
-    for (const auto &entry : mp)
+    for (auto &it : mp)
     {
-        if (entry.second > ct)
+        if (it.second > ct)
         {
-            ct = entry.second;
-            mx = entry.first;
+            ct = it.second;
+            mx = it.first;
         }
     }
     return ct > n / 2;

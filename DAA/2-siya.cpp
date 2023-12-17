@@ -1,18 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool bfs(int src, vector<vector<int>> &graph, vector<int> &color) {
+bool bfs(int src, vector<vector<int>> &adj, vector<int> &vis,int n)
+{
     queue<int> q;
     q.push(src);
-    while (!q.empty()) {
+    while (!q.empty())
+    {
         src = q.front();
         q.pop();
-        for (int i = 0; i < graph.size(); ++i) {
-            if (graph[src][i] == 1) {
-                if (color[i] == -1) {
-                    color[i] = 1 - color[src];
+        for (int i = 0; i < n; ++i)
+        {
+            if (adj[src][i] == 1)
+            {
+                if (vis[i] == -1)
+                {
+                    vis[i] = 1 - vis[src];
                     q.push(i);
-                } else if (color[i] == color[src]) 
+                }
+                else if (vis[i] == vis[src])
                     return false;
             }
         }
@@ -20,46 +26,59 @@ bool bfs(int src, vector<vector<int>> &graph, vector<int> &color) {
     return true;
 }
 
-bool isGraphBipartite(vector<vector<int>> &edges) {
-    int n = edges.size();
-    vector<int> color(n, -1);
-    for (int i = 0; i < n; i++) {
-        if (color[i] == -1) {
-            color[i] = 1;
-            if (!bfs(i, edges, color))
+bool check(vector<vector<int>> &adj)
+{
+    int n = adj.size();
+    vector<int> vis(n, -1);
+    for (int i = 0; i < n; i++)
+    {
+        if (vis[i] == -1)
+        {
+            vis[i] = 1;
+            if (!bfs(i, adj, vis,n))
                 return false;
         }
     }
     return true;
 }
 
-int main() {
+int main()
+{
     int N;
     cout << "Size :- ";
     cin >> N;
 
-    vector<vector<int>> graph(N, vector<int>(N, 0));
+    vector<vector<int>> adj(N, vector<int>(N, 0));
 
     cout << "Enter the adjacency matrix:" << endl;
-    for (int i = 0; i < N; ++i) {
-        for (int j = 0; j < N; ++j) {
-            cin >> graph[i][j];
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < N; j++)
+        {
+            cin >> adj[i][j];
         }
     }
 
-    if (isGraphBipartite(graph)) {
+    if (check(adj))
+    {
         cout << "Yes Bipartite" << endl;
-    } else {
+    }
+    else
+    {
         cout << "Not Bipartite" << endl;
     }
 
     return 0;
 }
 
-
-
 // 0 1 1 0 0
 // 1 0 1 1 1
 // 1 1 0 1 0
 // 0 1 1 0 1
 // 0 1 0 1 0
+
+
+// 0 1 0 1
+// 1 0 1 0
+// 0 1 0 1
+// 1 0 1 0
