@@ -1,5 +1,5 @@
 import React from 'react';
-import Ct from './component/Ct';
+import Ct2 from './component/Ct2';
 import Rep from './component/Rep';
 
 import './App.css';
@@ -7,8 +7,8 @@ import './App.css';
 function App() {
   return (
     <div>
-      <Ct />
-      <Rep />
+      <Ct2 />
+      {/* <Rep /> */}
     </div>
   );
 }

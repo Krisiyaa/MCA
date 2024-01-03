@@ -12,29 +12,29 @@
   </head>
   <body ng-component="">
     <form name="regForm" method="post">
+      
       <label for="name">Name</label> <br />
       <input name="name" type="text" ng-model="name" />
       <span ng-show="regForm.name.$touched && regForm.name.$invalid">
         Invalid Entry
       </span>
       <br />
-  
+
       <label for="email">Email</label> <br />
       <input name="email" type="email" ng-model="email" />
       <span ng-show="regForm.email.$touched && regForm.email.$invalid">
         Invalid Entry
       </span>
       <br />
-  
+
       <label for="password">Password</label> <br />
       <input name="password" type="password" ng-model="password" />
       <span ng-show="regForm.password.$touched && regForm.password.$invalid">
         Invalid Entry
       </span>
       <br />
-  
+
       <button ng-hide="regForm.$invalid">Submit</button>
     </form>
   </body>
-  
 </html>
